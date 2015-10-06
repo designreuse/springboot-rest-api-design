@@ -1,0 +1,62 @@
+/**
+ * 
+ */
+package com.sivalabs.blog.web.controllers;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sivalabs.blog.entities.Comment;
+import com.sivalabs.blog.resources.CommentsResource;
+import com.sivalabs.blog.services.BlogService;
+import com.sivalabs.blog.services.EmailService;
+
+/**
+ * @author Siva
+ *
+ */
+@RestController
+@RequestMapping(value="/comments")
+public class CommentsController
+{
+	private final static Logger LOGGER = LoggerFactory.getLogger(CommentsController.class);
+	
+	@Autowired
+	private BlogService blogService;
+	
+	@Autowired EmailService emailService;
+	
+	@RequestMapping(value="", method=RequestMethod.GET)
+	public CommentsResource findComments(PageRequest request)
+	{
+		Page<Comment> pageData = blogService.findComments(request);
+		CommentsResource commentsResponse = new CommentsResource(pageData);
+		return commentsResponse;
+	}
+	
+	@RequestMapping(value="/{commentId}", method=RequestMethod.DELETE)
+	public void deleteCommentById(@PathVariable(value="commentId") Integer commentId) {
+		LOGGER.debug("Delete comment id: "+commentId);
+		blogService.deleteComment(commentId);
+	}
+	
+	@RequestMapping(value="", method=RequestMethod.DELETE)
+	public void deleteComments(@RequestParam(value="commentIds") String commentIds) {
+		LOGGER.debug("Delete comment ids: "+commentIds);
+		String[] ids = commentIds.split(",");
+		for (String strId : ids)
+		{
+			blogService.deleteComment(Integer.parseInt(strId));
+		}
+		
+	}
+	
+}
