@@ -37,8 +37,9 @@ public class CommentsController
 	@Autowired EmailService emailService;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public ServiceResponse<CommentsResource> findComments(PageRequest request)
-	{
+	public ServiceResponse<CommentsResource> findComments(@RequestParam(name="page", defaultValue="0") int page, 
+			@RequestParam(name="size", defaultValue="5") int size) {
+		PageRequest request = new PageRequest(page, size);
 		Page<Comment> pageData = blogService.findComments(request);
 		CommentsResource commentsResponse = new CommentsResource(pageData);
 		return new ServiceResponse<>(commentsResponse);
