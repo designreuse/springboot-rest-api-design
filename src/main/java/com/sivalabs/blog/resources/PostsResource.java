@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page;
 
 import com.sivalabs.blog.entities.Post;
 import com.sivalabs.blog.model.PostDTO;
-import com.sivalabs.blog.utils.ObjectCoverterUtil;
+import com.sivalabs.blog.utils.BeanCopyUtils;
 
 /**
  * @author Siva
@@ -34,7 +34,7 @@ public class PostsResource extends AbstractCollectionResource<Post, PostDTO> imp
 		for (Post post : content)
 		{
 			//dtos.add(new PostDTO(post));
-			dtos.add(ObjectCoverterUtil.toPostDTO(post));
+			dtos.add(BeanCopyUtils.toPostDTO(post));
 		}
 		return dtos;
 	}

@@ -26,7 +26,7 @@ import com.sivalabs.blog.services.EmailService;
  *
  */
 @RestController
-@RequestMapping(value="/comments")
+@RequestMapping(value="/api/comments")
 public class CommentsController
 {
 	private final static Logger LOGGER = LoggerFactory.getLogger(CommentsController.class);

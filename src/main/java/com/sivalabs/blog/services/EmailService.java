@@ -54,7 +54,7 @@ public class EmailService implements ApplicationEventPublisherAware, Application
 		
         try
 		{
-			javaMailSender.send(mailMessage);
+			//javaMailSender.send(mailMessage);
 		} catch (MailException e)
 		{
 			e.printStackTrace();

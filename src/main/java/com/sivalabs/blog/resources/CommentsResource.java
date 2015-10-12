@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 
 import com.sivalabs.blog.entities.Comment;
 import com.sivalabs.blog.model.CommentDTO;
-import com.sivalabs.blog.utils.ObjectCoverterUtil;
+import com.sivalabs.blog.utils.BeanCopyUtils;
 
 /**
  * @author Siva
@@ -31,7 +31,7 @@ public class CommentsResource extends AbstractCollectionResource<Comment, Commen
 		for (Comment comment : content)
 		{
 			//dtos.add(new CommentDTO(comment));
-			dtos.add(ObjectCoverterUtil.toCommentDTO(comment));
+			dtos.add(BeanCopyUtils.toCommentDTO(comment));
 		}
 		return dtos;
 	}

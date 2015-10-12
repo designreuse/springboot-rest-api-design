@@ -26,14 +26,14 @@ import com.sivalabs.blog.model.ServiceResponse;
 import com.sivalabs.blog.resources.PostsResource;
 import com.sivalabs.blog.services.BlogService;
 import com.sivalabs.blog.services.EmailService;
-import com.sivalabs.blog.utils.ObjectCoverterUtil;
+import com.sivalabs.blog.utils.BeanCopyUtils;
 
 /**
  * @author Siva
  *
  */
 @RestController
-@RequestMapping(value="/posts")
+@RequestMapping(value="/api/posts")
 public class PostController
 {
 	private final static Logger LOGGER = LoggerFactory.getLogger(PostController.class);
@@ -56,19 +56,19 @@ public class PostController
 	public ServiceResponse<PostDTO> findPostById(@PathVariable(value="postId") Integer postId) {
 		LOGGER.debug("View Post id: "+postId);
 		Post post = blogService.findPostById(postId);
-		return new ServiceResponse<PostDTO>(ObjectCoverterUtil.toPostDTO(post));
+		return new ServiceResponse<PostDTO>(BeanCopyUtils.toPostDTO(post));
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public ServiceResponse<PostDTO> createPost(@RequestBody PostDTO postDTO, 
 								HttpServletRequest request) 
 	{
-		Post post = ObjectCoverterUtil.toPostEntity(postDTO);
+		Post post = BeanCopyUtils.toPostEntity(postDTO);
 		Post createdPost = this.blogService.createPost(post);
 		String subject = "New Post ["+post.getTitle()+"] published";
 		String content = "A new post with title \""+post.getTitle()+"\" is published.\nThanks,\nSiva";
 		emailService.sendEmail(subject, content);
-		return new ServiceResponse<PostDTO>(ObjectCoverterUtil.toPostDTO(createdPost));
+		return new ServiceResponse<PostDTO>(BeanCopyUtils.toPostDTO(createdPost));
 	}
 	
 	@RequestMapping(value="/{postId}", method=RequestMethod.DELETE)
@@ -80,13 +80,13 @@ public class PostController
 	
 	@RequestMapping(value="/{postId}/comments", method=RequestMethod.POST)
 	public ServiceResponse<CommentDTO> addComment(@PathVariable(value="postId") Integer postId, @RequestBody CommentDTO commentDTO) {
-		Comment comment = ObjectCoverterUtil.toCommentEntity(commentDTO);
+		Comment comment = BeanCopyUtils.toCommentEntity(commentDTO);
 		comment.setPost(new Post(postId));
 		Comment createdComment = blogService.createComment(comment );
 		String subject = "New Comment on ["+comment.getPost().getTitle()+"] published";
 		String content = "A new post with title \""+comment.getPost().getTitle()+"\" is published.\nThanks,\nSiva";
 		emailService.sendEmail(subject, content);
-		return new ServiceResponse<>(ObjectCoverterUtil.toCommentDTO(createdComment));
+		return new ServiceResponse<>(BeanCopyUtils.toCommentDTO(createdComment));
 	}
 	
 	
