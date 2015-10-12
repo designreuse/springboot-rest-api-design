@@ -4,11 +4,13 @@
 package com.sivalabs.blog.security;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.sivalabs.blog.entities.Role;
 import com.sivalabs.blog.entities.User;
 
 
@@ -32,7 +34,14 @@ public class SecurityUser implements UserDetails
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities()
 	{
-		return AuthorityUtils.createAuthorityList(domainUser.getRole());
+		Set<Role> roles = domainUser.getRoles();
+		String[] rolesList = new String[roles.size()];
+		int counter = 0;
+		for (Role role : roles)
+		{
+			rolesList[counter++] = role.getName();
+		}
+		return AuthorityUtils.createAuthorityList(rolesList);
 	}
 
 	@Override

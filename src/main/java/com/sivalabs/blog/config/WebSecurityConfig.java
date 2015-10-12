@@ -79,6 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
             .authorizeRequests()
+            .antMatchers("/api/authenticate", "/api/loginUser").permitAll()
             .antMatchers(HttpMethod.POST,"/api/posts").hasRole(ROLE_ADMIN)
 	        .antMatchers(HttpMethod.DELETE,"/api/posts").hasRole(ROLE_ADMIN)
 	        .antMatchers(HttpMethod.POST,"/api/comments","/api/comments/**").hasRole(ROLE_ADMIN)

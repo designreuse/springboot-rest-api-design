@@ -1,10 +1,19 @@
 
 delete from comments;
 delete from posts;
+delete from user_role;
+delete from roles;
 delete from users;
 
-insert into users(user_id, email, password, name, role) values(1,'admin@gmail.com','$2a$10$pCDI501CUE3lhXXN/fX7t.q735udWnsxdab9yuaM4Ss3wuilGFG/u','Administrator','ROLE_ADMIN');
-insert into users(user_id, email, password, name, role) values(2,'siva@gmail.com','$2a$10$nAae7/1oRPvOd32bQ78nnuybi7FEQb0ClMS6ZojZzXeFdep3L3UUq','Siva Prasad','ROLE_USER');
+insert into roles(role_id, name) values(1,'ROLE_ADMIN');
+insert into roles(role_id, name) values(2,'ROLE_USER');
+
+insert into users(user_id, email, password, name) values(1,'admin@gmail.com','$2a$10$pCDI501CUE3lhXXN/fX7t.q735udWnsxdab9yuaM4Ss3wuilGFG/u','Administrator');
+insert into users(user_id, email, password, name) values(2,'siva@gmail.com','$2a$10$nAae7/1oRPvOd32bQ78nnuybi7FEQb0ClMS6ZojZzXeFdep3L3UUq','Siva Prasad');
+
+insert into user_role (user_id, role_id) values(1,1);
+insert into user_role (user_id, role_id) values(1,2);
+insert into user_role (user_id, role_id) values(2,2);
 
 insert into posts(post_id, title, content, created_on, updated_on, user_id) values(1,'SpringBoot: Introducing SpringBoot','SpringBoot is a new spring portfolio project which takes opinionated view of building production-ready Spring applications by drastically reducing the amount of configuration required. Spring Boot is taking the convention over configuration style to the next level by registering the default configurations automatically based on the classpath libraries available at runtime.', '2014-06-20', null,1);
 insert into posts(post_id, title, content, created_on, updated_on, user_id) values(2,'Exporting Spring Data JPA Repositories as REST Services using Spring Data REST','Spring Data modules provides various modules to work with various types of datasources like RDBMS, NOSQL stores etc in unified way. In my previous article  SpringMVC4 + Spring Data JPA + SpringSecurity configuration using JavaConfig I have explained how to configure Spring Data JPA using JavaConfig.', '2014-06-25', null,1);

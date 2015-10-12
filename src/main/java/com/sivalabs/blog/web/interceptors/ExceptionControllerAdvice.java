@@ -68,7 +68,7 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public ServiceResponse<Void> exception(Exception e) {
-        logger.error("Exception occured: "+e.getMessage());
+        logger.error("Exception occured: "+e.getMessage(), e);
         ServiceResponse<Void> response = new ServiceResponse<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
         response.setErrorMessage(e.getMessage());
         StringWriter sw = new StringWriter();

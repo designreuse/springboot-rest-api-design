@@ -1,12 +1,18 @@
 package com.sivalabs.blog.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -28,7 +34,13 @@ public class User implements Serializable
 	private String password;
 	@Column(name = "name", nullable = false, length = 50)
 	private String name;
-	private String role;
+
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name = "USER_ROLE",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")})
+    private Set<Role> roles = new HashSet<>();
 	
 	public User()
 	{
@@ -39,13 +51,13 @@ public class User implements Serializable
 		this.id = id;
 	}
 
-	public User(Integer id, String email, String password, String name, String role)
+	public User(Integer id, String email, String password, String name, Set<Role> roles)
 	{
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.name = name;
-		this.role = role;
+		this.roles = roles;
 	}
 
 	public Integer getId() {
@@ -80,14 +92,14 @@ public class User implements Serializable
 		this.name = name;
 	}
 
-	public String getRole()
+	public Set<Role> getRoles()
 	{
-		return role;
+		return roles;
 	}
 
-	public void setRole(String role)
+	public void setRoles(Set<Role> roles)
 	{
-		this.role = role;
+		this.roles = roles;
 	}
 
 }

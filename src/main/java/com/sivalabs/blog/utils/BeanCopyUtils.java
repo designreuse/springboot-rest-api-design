@@ -27,7 +27,8 @@ public final class BeanCopyUtils
 	public static PostDTO toPostDTO(Post post)
 	{
 		ModelMapper mapper = new ModelMapper();
-		return mapper.map(post, PostDTO.class);		
+		PostDTO postDTO = mapper.map(post, PostDTO.class);
+		return postDTO;		
 	}
 	
 	public static Comment toCommentEntity(CommentDTO dto)

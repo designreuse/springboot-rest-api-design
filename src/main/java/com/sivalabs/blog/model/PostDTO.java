@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.sivalabs.blog.entities.User;
-
 /**
  * @author Siva
  *
@@ -15,7 +13,7 @@ public class PostDTO
 	private Integer id;
 	private String title;
 	private String content;
-	private User createdBy;
+	private UserDTO createdBy;
 	private Date createdOn = new Date();
 	private Date updatedOn;
 	private List<CommentDTO> comments = new ArrayList<>();
@@ -63,11 +61,11 @@ public class PostDTO
 	{
 		this.content = content;
 	}
-	public User getCreatedBy()
+	public UserDTO getCreatedBy()
 	{
 		return createdBy;
 	}
-	public void setCreatedBy(User createdBy)
+	public void setCreatedBy(UserDTO createdBy)
 	{
 		this.createdBy = createdBy;
 	}
