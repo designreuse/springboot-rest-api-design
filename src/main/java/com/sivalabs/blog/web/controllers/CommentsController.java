@@ -21,6 +21,8 @@ import com.sivalabs.blog.resources.CommentsResource;
 import com.sivalabs.blog.services.BlogService;
 import com.sivalabs.blog.services.EmailService;
 
+import io.swagger.annotations.ApiImplicitParam;
+
 /**
  * @author Siva
  *
@@ -35,7 +37,10 @@ public class CommentsController
 	private BlogService blogService;
 	
 	@Autowired EmailService emailService;
-	
+	/*
+    @ApiImplicitParam(name = "x-auth-token", value = "x-auth-token value", 
+        					required = true, dataType = "string", paramType = "header")
+    */
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public ServiceResponse<CommentsResource> findComments(@RequestParam(name="page", defaultValue="0") int page, 
 			@RequestParam(name="size", defaultValue="5") int size) {

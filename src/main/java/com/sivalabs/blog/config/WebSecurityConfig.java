@@ -82,7 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/authenticate", "/api/loginUser").permitAll()
             .antMatchers(HttpMethod.POST,"/api/posts").hasRole(ROLE_ADMIN)
 	        .antMatchers(HttpMethod.DELETE,"/api/posts").hasRole(ROLE_ADMIN)
-	        .antMatchers(HttpMethod.POST,"/api/comments","/api/comments/**").hasRole(ROLE_ADMIN)
+	        .antMatchers("/api/comments","/api/comments/**").hasRole(ROLE_ADMIN)
         .and()
             .apply(securityConfigurerAdapter());
 
