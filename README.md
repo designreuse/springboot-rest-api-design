@@ -5,7 +5,7 @@
 ### How to Run?
 Run BlogApplication.java as a Java application.
 
-To explore and invoke the REST endpoints go to http://localhost:8080/swagger-ui.html
+To explore and invoke the REST endpoints go to http://localhost:8080/swagger-ui/index.html
 
 Some of the endpoints needs authentication. Authenticate using POST /api/authenticate endpoint using credentials admin@gmail.com/admin.
 	
