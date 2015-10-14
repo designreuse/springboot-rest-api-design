@@ -28,11 +28,11 @@ public class User implements Serializable
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private Integer id;
-	@Column(name = "email", nullable = false, unique = true, length = 50)
+	@Column(name = "email", nullable = false, unique = true, length = 100)
 	private String email;
-	@Column(name = "password", nullable = false, length = 50)
+	@Column(name = "password", nullable = false, length = 100)
 	private String password;
-	@Column(name = "name", nullable = false, length = 50)
+	@Column(name = "name", nullable = false, length = 100)
 	private String name;
 
     @ManyToMany(fetch=FetchType.EAGER)

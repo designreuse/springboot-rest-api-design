@@ -14,13 +14,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.sivalabs.blog.exceptions.UnauthorizedAccessException;
 import com.sivalabs.blog.exceptions.ValidationFailureException;
 import com.sivalabs.blog.model.ServiceResponse;
 
@@ -60,9 +60,9 @@ public class ExceptionControllerAdvice {
         return response;
     }
 
-    @ExceptionHandler(UnauthorizedAccessException.class)
-    public ServiceResponse<Void> unauthorizedAccessException(UnauthorizedAccessException e) {
-        logger.error("Unauthorized Access exception");
+    @ExceptionHandler(BadCredentialsException.class)
+    public ServiceResponse<Void> badCredentialsException(BadCredentialsException e) {
+        logger.error("Bad Credentials Exception");
         return new ServiceResponse<>(HttpStatus.UNAUTHORIZED);
     }
 
